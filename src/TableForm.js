@@ -83,7 +83,7 @@ const TableForm = () => {
           />
         </FormControl>
         <FormControl className={classes.formControl} required>
-          <InputLabel htmlFor="component-simple">First Name</InputLabel>
+          <InputLabel htmlFor="component-simple">Last Name</InputLabel>
           <Input
             type="text"
             name="firstname"
