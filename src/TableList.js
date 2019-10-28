@@ -1,7 +1,5 @@
-import React, { useContext, Component } from "react";
+import React from "react";
 import { useSelector } from "react-redux";
-import DisplayTable from "./DisplayTable";
-import { connect } from "react-redux";
 import { withStyles, makeStyles } from "@material-ui/core/styles";
 import Table from "@material-ui/core/Table";
 import TableBody from "@material-ui/core/TableBody";
@@ -39,7 +37,7 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-const TableList = ({ posts }) => {
+const TableList = () => {
   const classes = useStyles();
   const Tables = useSelector(state => ({
     posts: state
@@ -78,8 +76,5 @@ const TableList = ({ posts }) => {
     </div>
   );
 };
-// const mapStateToProps = state => ({
-//   posts: state
-// });
-// export default connect(mapStateToProps)(TableList);
+
 export default TableList;

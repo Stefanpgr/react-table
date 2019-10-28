@@ -67,11 +67,7 @@ const TableForm = () => {
       type: "CREATE_NEW_DATA",
       data
     });
-    firstName = "";
-    lastName = "";
-    Age = "";
-    Hobby = "";
-    Birthday = "";
+
     console.log(data);
   };
 
@@ -103,7 +99,6 @@ const TableForm = () => {
             name="age"
             maxLength="4"
             size="4"
-            disabled
             type="number"
             value={Age}
             onChange={e => setAge(e.target.value)}
@@ -127,7 +122,7 @@ const TableForm = () => {
             label="Birthday"
             placeholder="Birthday"
             value={Birthday}
-            onChange={e => setBday(e.target.value)}
+            onChange={(e, date) => setBday(date)}
             required
             KeyboardButtonProps={{
               "aria-label": "change date"
