@@ -1,6 +1,7 @@
-import React, { useContext } from "react";
-// import TableElement from "./TableElement";
-import { TableContext } from "./TableContext";
+import React, { useContext, Component } from "react";
+import { useSelector } from "react-redux";
+import DisplayTable from "./DisplayTable";
+import { connect } from "react-redux";
 import { withStyles, makeStyles } from "@material-ui/core/styles";
 import Table from "@material-ui/core/Table";
 import TableBody from "@material-ui/core/TableBody";
@@ -38,12 +39,18 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-const TableList = () => {
-  const [Tables] = useContext(TableContext);
-  const classes = useStyles;
+const TableList = ({ posts }) => {
+  const classes = useStyles();
+  const Tables = useSelector(state => ({
+    posts: state
+  }));
 
   return (
     <div>
+      <h1>Table Data</h1>
+      <h6>Fill the form above to see updates below</h6>
+      {console.log(Tables.posts.map(post => post.firstname), "hello")}
+
       <Paper className={classes.root}>
         <Table className={classes.table} aria-label="customized table">
           <TableHead>
@@ -56,10 +63,10 @@ const TableList = () => {
             </TableRow>
           </TableHead>
           <TableBody>
-            {Tables.map((table, index) => (
+            {Tables.posts.map((table, index) => (
               <StyledTableRow key={index}>
-                <StyledTableCell>{table.firstName} </StyledTableCell>
-                <StyledTableCell>{table.lastName}</StyledTableCell>
+                <StyledTableCell>{table.firstname} </StyledTableCell>
+                <StyledTableCell>{table.lastname}</StyledTableCell>
                 <StyledTableCell>{table.birthday}</StyledTableCell>
                 <StyledTableCell>{table.age}</StyledTableCell>
                 <StyledTableCell>{table.hobby}</StyledTableCell>
@@ -71,5 +78,8 @@ const TableList = () => {
     </div>
   );
 };
-
+// const mapStateToProps = state => ({
+//   posts: state
+// });
+// export default connect(mapStateToProps)(TableList);
 export default TableList;
