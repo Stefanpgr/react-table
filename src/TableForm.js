@@ -67,8 +67,6 @@ const TableForm = () => {
       type: "CREATE_NEW_DATA",
       data
     });
-
-    console.log(data);
   };
 
   return (
@@ -141,82 +139,5 @@ const TableForm = () => {
     </div>
   );
 };
-
-// class TableForm extends Component {
-//   handleSubmit = e => {
-//     e.preventDefault();
-//     const firstname = this.getFirstname.value;
-//     const lastname = this.getLastname.value;
-//     const birthday = this.getBirthday.value;
-//     const age = this.getAge.value;
-//     const hobby = this.getHobby.value;
-//     const data = {
-//       id: new Date(),
-//       firstname,
-//       lastname,
-//       birthday,
-//       age,
-//       hobby
-//     };
-//     this.props.dispatch({
-//       type: "CREATE_NEW_DATA",
-//       data
-//     });
-//     this.getFirstname.value = "";
-//     this.getLastname.value = "";
-//     this.getBirthday.value = "";
-//     this.getAge.value = "";
-//     this.getHobby.value = "";
-//     console.log(data);
-//   };
-//   render() {
-
-//     return (
-//       <div>
-//         <h1>Create Table</h1>
-//         <form onSubmit={this.handleSubmit}>
-//           <input
-//             required
-//             type="text"
-//             ref={input => (this.getFirstname = input)}
-//             placeholder="Firstname"
-//           />
-//           <br />
-//           <br />
-//           <input
-//             required
-//             rows="5"
-//             ref={input => (this.getLastname = input)}
-//             placeholder="Lastname"
-//           />
-//           <input
-//             required
-//             rows="5"
-//             ref={input => (this.getBirthday = input)}
-//             type="date"
-//             placeholder="DAte of birth"
-//           />
-//           <input
-//             required
-//             rows="5"
-//             ref={input => (this.getAge = input)}
-//             placeholder="Age"
-//           />
-//           <br />
-//           <br />
-//           <input
-//             required
-//             rows="5"
-//             ref={input => (this.getHobby = input)}
-//             placeholder="Hobby"
-//           />
-//           <button>Submit</button>
-//         </form>
-//       </div>
-//     );
-//   }
-// }
-
-// export default connect()(TableForm);
 
 export default TableForm;

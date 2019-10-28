@@ -7,17 +7,11 @@ import { createStore } from "redux";
 import { Provider } from "react-redux";
 import tableReducer from "./reducers/tableReducer";
 
-// let store = createStore(
+const store = createStore(
+  tableReducer,
+  window.devToolsExtension && window.devToolsExtension()
+);
 
-//   window.devToolsExtension && window.devToolsExtension()
-// );
-const store = createStore(tableReducer);
-// Display to console
-store.subscribe(() => console.log(store.getState()));
-console.log(store.getState());
-// DISPATCHER
-// store.dispatch(decrement());
-// store.dispatch(increment());
 ReactDOM.render(
   <Provider store={store}>
     <App />
