@@ -7,7 +7,7 @@ import { createStore } from "redux";
 import { Provider } from "react-redux";
 import tableReducer from "./reducers/tableReducer";
 
-const store = createStore(tableReducer, window.__REDUX_DEVTOOLS_EXTENSION__());
+const store = createStore(tableReducer);
 
 ReactDOM.render(
   <Provider store={store}>
