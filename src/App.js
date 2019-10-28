@@ -1,22 +1,27 @@
-import React from "react";
+import React, { Component } from "react";
 import "./App.css";
-import Nav from "./Nav";
+// import Nav from "./Nav";
 import TableList from "./TableList";
+import TableForm from "./TableForm";
 import Container from "@material-ui/core/Container";
 
-import AddData from "./AddData";
-import { TableProvider } from "./TableContext";
+// import AddData from "./AddData";
+// import { TableProvider } from "./TableContext";
 
-function App() {
-  return (
-    <TableProvider>
-      <Nav />
+class App extends Component {
+  render() {
+    return (
+      // <TableProvider>
+      // <Nav />
       <Container maxWidth="sm">
-        <AddData />
+        {/* <AddData /> */}
+
+        <TableForm />
         <TableList />
       </Container>
-    </TableProvider>
-  );
+      // </TableProvider>
+    );
+  }
 }
 
 export default App;
