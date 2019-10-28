@@ -5,6 +5,7 @@ import Table from "@material-ui/core/Table";
 import TableBody from "@material-ui/core/TableBody";
 import TableCell from "@material-ui/core/TableCell";
 import TableHead from "@material-ui/core/TableHead";
+import TablePagination from "@material-ui/core/TablePagination";
 import TableRow from "@material-ui/core/TableRow";
 import Paper from "@material-ui/core/Paper";
 
@@ -26,52 +27,83 @@ const StyledTableRow = withStyles(theme => ({
   }
 }))(TableRow);
 
-const useStyles = makeStyles(theme => ({
+const useStyles = makeStyles({
   root: {
-    width: "100%",
-    marginTop: theme.spacing(3),
-    overflowX: "auto"
+    flexGrow: 1
   },
-  table: {
-    minWidth: 700
+  tableWrapper: {
+    maxHeight: 440,
+    overflow: "auto"
+  },
+  paper: {
+    margin: "auto",
+    width: "100%"
   }
-}));
-
+});
 const TableList = () => {
   const classes = useStyles();
+  const [page, setPage] = React.useState(0);
+  const [rowsPerPage, setRowsPerPage] = React.useState(10);
   const Tables = useSelector(state => ({
     posts: state
   }));
+  const handleChangePage = (event, newPage) => {
+    setPage(newPage);
+  };
+
+  const handleChangeRowsPerPage = event => {
+    setRowsPerPage(+event.target.value);
+    setPage(0);
+  };
 
   return (
-    <div>
+    <div className={classes.root}>
       <h1>Table Data</h1>
-      <h6>Fill the form above to see updates below</h6>
+      {/* <h6>Fill the form above to see updates below</h6> */}
       {console.log(Tables.posts.map(post => post.firstname), "hello")}
 
-      <Paper className={classes.root}>
-        <Table className={classes.table} aria-label="customized table">
-          <TableHead>
-            <TableRow>
-              <StyledTableCell>Firstname</StyledTableCell>
-              <StyledTableCell>Last Name</StyledTableCell>
-              <StyledTableCell>Birthday</StyledTableCell>
-              <StyledTableCell>Age</StyledTableCell>
-              <StyledTableCell>Hobby</StyledTableCell>
-            </TableRow>
-          </TableHead>
-          <TableBody>
-            {Tables.posts.map((table, index) => (
-              <StyledTableRow key={index}>
-                <StyledTableCell>{table.firstname} </StyledTableCell>
-                <StyledTableCell>{table.lastname}</StyledTableCell>
-                <StyledTableCell>{table.birthday}</StyledTableCell>
-                <StyledTableCell>{table.age}</StyledTableCell>
-                <StyledTableCell>{table.hobby}</StyledTableCell>
-              </StyledTableRow>
-            ))}
-          </TableBody>
-        </Table>
+      <Paper className={classes.paper}>
+        <div className={classes.tableWrapper}>
+          <Table stickyHeader aria-label="sticky table">
+            <TableHead>
+              <TableRow>
+                <StyledTableCell>Firstname</StyledTableCell>
+                <StyledTableCell>Last Name</StyledTableCell>
+                <StyledTableCell>Birthday</StyledTableCell>
+                <StyledTableCell>Age</StyledTableCell>
+                <StyledTableCell>Hobby</StyledTableCell>
+              </TableRow>
+            </TableHead>
+            <TableBody>
+              {Tables.posts
+                .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+                .map((table, index) => (
+                  <StyledTableRow key={index}>
+                    <StyledTableCell>{table.firstname} </StyledTableCell>
+                    <StyledTableCell>{table.lastname}</StyledTableCell>
+                    <StyledTableCell>{table.birthday}</StyledTableCell>
+                    <StyledTableCell>{table.age}</StyledTableCell>
+                    <StyledTableCell>{table.hobby}</StyledTableCell>
+                  </StyledTableRow>
+                ))}
+            </TableBody>
+          </Table>
+        </div>
+        <TablePagination
+          rowsPerPageOptions={[5, 10, 100]}
+          component="div"
+          count={Tables.posts.length}
+          rowsPerPage={rowsPerPage}
+          page={page}
+          backIconButtonProps={{
+            "aria-label": "previous page"
+          }}
+          nextIconButtonProps={{
+            "aria-label": "next page"
+          }}
+          onChangePage={handleChangePage}
+          onChangeRowsPerPage={handleChangeRowsPerPage}
+        />
       </Paper>
     </div>
   );
