@@ -116,7 +116,7 @@ const TableForm = () => {
           <KeyboardDatePicker
             margin="normal"
             id="date-picker-dialog"
-            format="dd/MM/yyyy"
+            format="MM/dd/yyyy"
             label="Birthday"
             placeholder="Birthday"
             value={Birthday}
