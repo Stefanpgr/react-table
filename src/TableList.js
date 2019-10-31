@@ -60,7 +60,6 @@ const TableList = () => {
     <div className={classes.root}>
       <h1>Table Data</h1>
       {/* <h6>Fill the form above to see updates below</h6> */}
-      {console.log(Tables.posts.map(post => post.firstname), "hello")}
 
       <Paper className={classes.paper}>
         <div className={classes.tableWrapper}>

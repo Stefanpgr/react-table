@@ -3,7 +3,6 @@ import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import { makeStyles } from "@material-ui/core/styles";
 import FormControl from "@material-ui/core/FormControl";
-import { FormHelperText } from "@material-ui/core";
 import DateFnsUtils from "@date-io/date-fns";
 import Button from "@material-ui/core/Button";
 import moment from "moment";
@@ -47,9 +46,11 @@ const TableForm = () => {
   let [lastName, setLname] = useState("");
   let [Hobby, setHobby] = useState("");
   let [Age, setAge] = useState("");
-  let [Birthday, setBday] = useState(moment().format("l"));
+  let [Birthday, setBday] = useState("01/01/1998");
+
   const handleSubmit = e => {
     e.preventDefault();
+
     const firstname = firstName;
     const lastname = lastName;
     const birthday = Birthday;
@@ -114,14 +115,21 @@ const TableForm = () => {
         </FormControl>
         <MuiPickersUtilsProvider utils={DateFnsUtils}>
           <KeyboardDatePicker
+            required
             margin="normal"
             id="date-picker-dialog"
             format="MM/dd/yyyy"
             label="Birthday"
             placeholder="Birthday"
             value={Birthday}
-            onChange={(e, date) => setBday(date)}
-            required
+            onChange={(e, date) => {
+              setBday(date);
+              let getBdyear = date.split("/");
+              let currYear = moment().year();
+              let bdYear = Number(getBdyear[2]);
+              let age = currYear - bdYear;
+              setAge(age);
+            }}
             KeyboardButtonProps={{
               "aria-label": "change date"
             }}
