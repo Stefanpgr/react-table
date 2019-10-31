@@ -13,6 +13,7 @@ import {
 import InputLabel from "@material-ui/core/InputLabel";
 import Input from "@material-ui/core/Input";
 import "./index.css";
+import { addData } from "./actions/Actions";
 
 const TableForm = () => {
   const dispatch = useDispatch();
@@ -64,10 +65,7 @@ const TableForm = () => {
       age,
       hobby
     };
-    dispatch({
-      type: "CREATE_NEW_DATA",
-      data
-    });
+    dispatch(addData);
   };
 
   return (
