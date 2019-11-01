@@ -47,6 +47,7 @@ const TableList = () => {
   const Tables = useSelector(state => ({
     posts: state
   }));
+  console.log(Tables.posts);
   const handleChangePage = (event, newPage) => {
     setPage(newPage);
   };

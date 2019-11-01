@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 
+// import v35 from "uuid/v5";
 import { useDispatch } from "react-redux";
 import { makeStyles } from "@material-ui/core/styles";
 import FormControl from "@material-ui/core/FormControl";
@@ -13,7 +14,7 @@ import {
 import InputLabel from "@material-ui/core/InputLabel";
 import Input from "@material-ui/core/Input";
 import "./index.css";
-import { addData } from "./actions/Actions";
+import v4 from "uuid/v4";
 
 const TableForm = () => {
   const dispatch = useDispatch();
@@ -51,21 +52,24 @@ const TableForm = () => {
 
   const handleSubmit = e => {
     e.preventDefault();
-
+    // let uid = uuid();
     const firstname = firstName;
     const lastname = lastName;
     const birthday = Birthday;
     const age = Age;
     const hobby = Hobby;
     const data = {
-      id: new Date(),
+      id: v4(),
       firstname,
       lastname,
       birthday,
       age,
       hobby
     };
-    dispatch(addData);
+    dispatch({
+      type: "CREATE_NEW_DATA",
+      data
+    });
   };
 
   return (

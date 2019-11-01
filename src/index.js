@@ -3,19 +3,20 @@ import ReactDOM from "react-dom";
 import "./index.css";
 import App from "./App";
 
-import { createStore, applyMiddleware } from "redux";
-// import createSagaMiddleware from "redux-saga";
+import { createStore, applyMiddleware, compose } from "redux";
+import createSagaMiddleware from "redux-saga";
 import { Provider } from "react-redux";
 import tableReducer from "./reducers/tableReducer";
-// import startListener from "./Sagas";
+import startListener from "./sagas/saga";
 
-// const saga = createSagaMiddleware();
+const saga = createSagaMiddleware();
+const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
+
 const store = createStore(
   tableReducer,
-  // applyMiddleware(saga),
-  window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
+  /* preloadedState, */ composeEnhancers(applyMiddleware(saga))
 );
-// saga.run(startListener);
+saga.run(startListener);
 ReactDOM.render(
   <Provider store={store}>
     <App />
