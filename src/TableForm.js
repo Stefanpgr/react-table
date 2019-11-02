@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-// import v35 from "uuid/v5";
+import axios from "axios";
 import { useDispatch } from "react-redux";
 import { makeStyles } from "@material-ui/core/styles";
 import FormControl from "@material-ui/core/FormControl";
@@ -16,6 +16,7 @@ import Input from "@material-ui/core/Input";
 import "./index.css";
 import v4 from "uuid/v4";
 
+const uuidv5 = require("uuid/v5");
 const TableForm = () => {
   const dispatch = useDispatch();
 
@@ -32,10 +33,6 @@ const TableForm = () => {
     }
   }));
 
-  // const updateBday = (event, date) => {
-  //   setState(date);
-  // };
-
   const [labelWidth, setLabelWidth] = React.useState(0);
 
   const labelRef = React.useRef(0);
@@ -49,27 +46,38 @@ const TableForm = () => {
   let [Hobby, setHobby] = useState("");
   let [Age, setAge] = useState("");
   let [Birthday, setBday] = useState("01/01/1998");
+  const MY_NAMESPACE = "36cceb95-967b - 4534 - adca - 84627824ceae";
 
   const handleSubmit = e => {
     e.preventDefault();
-    // let uid = uuid();
+
     const firstname = firstName;
     const lastname = lastName;
     const birthday = Birthday;
     const age = Age;
     const hobby = Hobby;
     const data = {
-      id: v4(),
       firstname,
       lastname,
       birthday,
       age,
       hobby
     };
-    dispatch({
-      type: "CREATE_NEW_DATA",
-      data
-    });
+
+    axios
+      .post(
+        `https://us-central1-myfunctions-330ec.cloudfunctions.net/entries`,
+        data
+      )
+      .then(res => {
+        console.log(res);
+        console.log(res.data);
+      });
+
+    console.log("DATA SAVED");
+    // dispatch({
+    //   type: "CREATE_NEW_DATA"
+    // });
   };
 
   return (

@@ -1,7 +1,5 @@
 import firebase from "firebase/app";
 import "firebase/database";
-// import config from "./config.json";
+import config from "./config.js";
 
-export default firebase.initializeApp({
-  databaseURL: "https://myfunctions-330ec.firebaseio.com"
-});
+export default firebase.initializeApp(config);

@@ -47,7 +47,7 @@ const TableList = () => {
   const Tables = useSelector(state => ({
     posts: state
   }));
-  console.log(Tables.posts);
+  console.log(Tables.posts.items);
   const handleChangePage = (event, newPage) => {
     setPage(newPage);
   };
@@ -67,6 +67,7 @@ const TableList = () => {
           <Table stickyHeader aria-label="sticky table">
             <TableHead>
               <TableRow>
+                <StyledTableCell>User ID</StyledTableCell>
                 <StyledTableCell>Firstname</StyledTableCell>
                 <StyledTableCell>Last Name</StyledTableCell>
                 <StyledTableCell>Birthday</StyledTableCell>
@@ -75,10 +76,11 @@ const TableList = () => {
               </TableRow>
             </TableHead>
             <TableBody>
-              {Tables.posts
+              {Tables.posts.items
                 .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                 .map((table, index) => (
                   <StyledTableRow key={index}>
+                    <StyledTableCell>{table.id} </StyledTableCell>
                     <StyledTableCell>{table.firstname} </StyledTableCell>
                     <StyledTableCell>{table.lastname}</StyledTableCell>
                     <StyledTableCell>{table.birthday}</StyledTableCell>
