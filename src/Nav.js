@@ -24,9 +24,9 @@ const Nav = () => {
       <AppBar position="static">
         <Toolbar>
           <Typography variant="h6" className={classes.title}>
-            React Table with Redux
+            React Table with Redux-Saga and Fiebase
           </Typography>
-          Table Items: {data.posts.length}
+          Table Items: {data.posts.items.length}
         </Toolbar>
       </AppBar>
     </div>

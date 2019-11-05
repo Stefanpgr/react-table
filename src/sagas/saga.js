@@ -1,6 +1,6 @@
-import { put, take, fork } from "redux-saga/effects";
+import { put, all, take, delay, call, takeEvery } from "redux-saga/effects";
 import { eventChannel } from "redux-saga";
-
+import axios from "axios";
 import firebase from "../firebase/index";
 
 function* startListener() {
@@ -28,12 +28,35 @@ function* startListener() {
     //   // #4: Pause the task until the channel emits a signal and dispatch an action in the store;
 
     yield put({
-      type: "CREATE_NEW_DATA_ASYNC",
+      type: "FETCH_DATA_ASYNC",
       data: Object.values(data)
     });
   }
 }
 
+const submitToServer = async data => {
+  await axios
+    .post(
+      `https://us-central1-myfunctions-330ec.cloudfunctions.net/entries`,
+      data
+    )
+    .then(res => {
+      console.log(res);
+      console.log(res.data, "my data here");
+    })
+    .catch(err => {
+      console.log(err);
+    });
+};
+
+function* callSubmit(action) {
+  yield call(submitToServer, action.data);
+}
+
+function* saveDataSaga() {
+  yield takeEvery("CREATE_NEW_DATA", callSubmit);
+}
+
 export default function* root() {
-  yield fork(startListener);
+  yield all([startListener(), saveDataSaga()]);
 }

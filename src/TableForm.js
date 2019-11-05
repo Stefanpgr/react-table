@@ -1,6 +1,4 @@
 import React, { useState } from "react";
-
-import axios from "axios";
 import { useDispatch } from "react-redux";
 import { makeStyles } from "@material-ui/core/styles";
 import FormControl from "@material-ui/core/FormControl";
@@ -14,9 +12,7 @@ import {
 import InputLabel from "@material-ui/core/InputLabel";
 import Input from "@material-ui/core/Input";
 import "./index.css";
-import v4 from "uuid/v4";
 
-const uuidv5 = require("uuid/v5");
 const TableForm = () => {
   const dispatch = useDispatch();
 
@@ -46,12 +42,12 @@ const TableForm = () => {
   let [Hobby, setHobby] = useState("");
   let [Age, setAge] = useState("");
   let [Birthday, setBday] = useState("01/01/1998");
-  const MY_NAMESPACE = "36cceb95-967b - 4534 - adca - 84627824ceae";
 
   const handleSubmit = e => {
     e.preventDefault();
 
     const firstname = firstName;
+    const uuid = "test";
     const lastname = lastName;
     const birthday = Birthday;
     const age = Age;
@@ -60,29 +56,25 @@ const TableForm = () => {
       firstname,
       lastname,
       birthday,
+      uuid,
       age,
       hobby
     };
 
-    axios
-      .post(
-        `https://us-central1-myfunctions-330ec.cloudfunctions.net/entries`,
-        data
-      )
-      .then(res => {
-        console.log(res);
-        console.log(res.data);
-      });
-
+    dispatch({
+      type: "CREATE_NEW_DATA",
+      data
+    });
     console.log("DATA SAVED");
-    // dispatch({
-    //   type: "CREATE_NEW_DATA"
-    // });
   };
 
   return (
     <div>
       <h1>Create Table</h1>
+      <h6>
+        {" "}
+        <i>Select birthdate to automatically get Approx. Age</i>{" "}
+      </h6>
       <form onSubmit={handleSubmit}>
         <FormControl className={classes.formControl} required>
           <InputLabel htmlFor="component-simple">First Name</InputLabel>
@@ -100,27 +92,6 @@ const TableForm = () => {
             name="firstname"
             value={lastName}
             onChange={e => setLname(e.target.value)}
-          />
-        </FormControl>
-        <FormControl className={classes.formControl} required>
-          <InputLabel htmlFor="component-simple">Age</InputLabel>
-          <Input
-            name="age"
-            maxLength="4"
-            size="4"
-            type="number"
-            value={Age}
-            onChange={e => setAge(e.target.value)}
-          />
-        </FormControl>
-        <FormControl className={classes.formControl} required>
-          <InputLabel htmlFor="component-simple">Hobby</InputLabel>
-          <Input
-            type="text"
-            name="hobby"
-            value={Hobby}
-            onChange={e => setHobby(e.target.value)}
-            required
           />
         </FormControl>
         <MuiPickersUtilsProvider utils={DateFnsUtils}>
@@ -145,6 +116,28 @@ const TableForm = () => {
             }}
           />
         </MuiPickersUtilsProvider>
+        <FormControl className={classes.formControl} required>
+          <InputLabel htmlFor="component-simple">Age</InputLabel>
+          <Input
+            name="age"
+            maxLength="4"
+            size="4"
+            type="number"
+            value={Age}
+            onChange={e => setAge(e.target.value)}
+          />
+        </FormControl>
+        <FormControl className={classes.formControl} required>
+          <InputLabel htmlFor="component-simple">Hobby</InputLabel>
+          <Input
+            type="text"
+            name="hobby"
+            value={Hobby}
+            onChange={e => setHobby(e.target.value)}
+            required
+          />
+        </FormControl>
+
         <Button
           type="submit"
           variant="contained"

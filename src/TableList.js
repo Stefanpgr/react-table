@@ -47,7 +47,7 @@ const TableList = () => {
   const Tables = useSelector(state => ({
     posts: state
   }));
-  console.log(Tables.posts.items);
+  // console.log(Tables.posts.items);
   const handleChangePage = (event, newPage) => {
     setPage(newPage);
   };
@@ -80,7 +80,7 @@ const TableList = () => {
                 .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                 .map((table, index) => (
                   <StyledTableRow key={index}>
-                    <StyledTableCell>{table.id} </StyledTableCell>
+                    <StyledTableCell>{table.uuid} </StyledTableCell>
                     <StyledTableCell>{table.firstname} </StyledTableCell>
                     <StyledTableCell>{table.lastname}</StyledTableCell>
                     <StyledTableCell>{table.birthday}</StyledTableCell>
@@ -94,7 +94,7 @@ const TableList = () => {
         <TablePagination
           rowsPerPageOptions={[5, 10, 100]}
           component="div"
-          count={Tables.posts.length}
+          count={Tables.posts.items.length}
           rowsPerPage={rowsPerPage}
           page={page}
           backIconButtonProps={{
